@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Consulta de Pesquisa</title>
+		<script src="jquery/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+		<script src="jquery/jquery.dataTables.min.js"></script>
+		<script src="angular/angular-datatables.min.js"></script>
+		<script src="bootstrap/bootstrap.min.js"></script>
+		<script src="app.js"></script>
+		<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap/datatables.bootstrap.css">
+		<meta charset="utf-8"/>
+	</head>
+	<body ng-app="crudApp" ng-controller="crudController">
+		
+		<div class="container" ng-init="fetchData()">
+			<br />
+				<h3 align="center">Consulta de Pesquisa</h3>
+			<br />
+			<br />
+			<div class="table-responsive" style="overflow-x: unset;">
+				<table datatable="ng" dt-options="vm.dtOptions" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Ponto de Venda</th>
+							<th>Data</th>
+							<th>Produto/Categoria</th>
+							<th>Margem</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="alerta in lista_alertas">
+							<td>{{alerta.pontoDeVenda}}</td>
+							<td>{{alerta.dataRegistro | date:'dd/MM/yyyy'}}</td>
+							<td>{{alerta.produto ? alerta.produto : alerta.categoria}}</td>
+							<td>{{alerta.margem}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</body>
+</html>
