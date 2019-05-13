@@ -20,7 +20,7 @@
 			<br />
 			<br />
 			<div class="table-responsive" style="overflow-x: unset;">
-				<table datatable="ng" dt-options="vm.dtOptions" class="table table-bordered table-striped">
+				<table id="dataTable" class="table table-bordered table-striped">
 					<thead>
 						<tr>
 							<th>Ponto de Venda</th>
@@ -43,3 +43,25 @@
 		</div>
 	</body>
 </html>
+<script>
+	let dataTableJson = {
+		'order': [[0, 'desc']],
+		'lengthMenu': 'Exibir _MENU_ registros',
+		'zeroRecords': 'Nenhum registro encontrado...',
+		'info': 'Página _PAGE_ de _PAGES_',
+		'infoEmpty': 'Página 0 de _PAGES_',
+		'infoFiltered': '(Filtrados de _MAX_ registros)',
+		'search': 'pesquisar',
+		'oPaginate': {
+			'sFirst': 'Primeira',
+			'sPrevious': 'Anterior',
+			'sNext': 'Próxima',
+			'sLast': 'Última'
+		}
+	}
+
+	$("#dataTable").DataTable({
+		'language': dataTableJson,
+		'searching': false
+	});
+</script>
