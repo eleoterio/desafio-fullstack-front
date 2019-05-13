@@ -13,12 +13,64 @@
 		<meta charset="utf-8"/>
 	</head>
 	<body ng-app="crudApp" ng-controller="crudController">
-		
-		<div class="container" ng-init="fetchData()">
+		<div class="panel panel-default card-view " ng-init="fetchData()">
+            <div class="panel-heading">
+                <div class="pull-center">
+                    <h6 class="panel-title text-center">Consulta de Pesquisa</h6>
+                </div>
+                <div class="clearfix"></div>
+			</div>
+			<div class="card text-white bg-secondary ">
+				<div class="panel-body">
+					<div class="col-lg-6">
+						<label>Tipo de pesquisa</label>
+						<select name="comboTipo" id="comboTipo" ng-model="data.model">
+							<option ng-repeat="option in data.comboTipo" value="{{option.id}}">{{option.name}}</option>
+						</select>
+					</div>
+					<div class="col-lg-6">
+						<label>Ponto de Venda</label>
+						<select name="comboPonto" id="comboPonto" ng-model="combo.model">
+							<option ng-repeat="option in combo.comboPonto" value="{{option.id}}">{{option.name}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+            <div class="panel-wrapper collapse in card-body bg-info">
+                <div class="panel-body">
+                    <div class="col-lg-12">
+						<div class="table-responsive" style="overflow-x: unset;">
+								<table id="dataTable" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Ponto de Venda</th>
+											<th>Data</th>
+											<th>Produto/Categoria</th>
+											<th>Margem</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="alerta in lista_alertas">
+											<td>{{alerta.pontoDeVenda}}</td>
+											<td>{{alerta.dataRegistro | date:'dd/MM/yyyy'}}</td>
+											<td>{{alerta.produto ? alerta.produto : alerta.categoria}}</td>
+											<td>{{alerta.margem}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+		<!--<div class="container" ng-init="fetchData()">
 			<br />
 				<h3 align="center">Consulta de Pesquisa</h3>
 			<br />
 			<br />
+			
 			<div class="table-responsive" style="overflow-x: unset;">
 				<table id="dataTable" class="table table-bordered table-striped">
 					<thead>
@@ -42,7 +94,7 @@
 
 		</div>
 	</body>
-</html>
+</html>-->
 <script>
 	let dataTableJson = {
 		'order': [[0, 'desc']],
