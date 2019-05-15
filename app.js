@@ -13,20 +13,8 @@ app.controller('crudController', function($scope, $http) {
     };
 
     $scope.fetchData = function(){
-        $http({
-            method: "GET",
-            url:'http://localhost:8080/alertas?pesquisa=todos', 
-            headers: {
-                'Access-Control-Allow-Headers': 'accept, content-type',
-                'Access-Control-Allow-Methods': 'GET',
-                'Access-Control-Allow-Origin': '*'
-            }     
-        })
-        .success(function(data){
-			$scope.lista_alertas = data;
-        });
         
-        
+        $scope.carregarTabela();
         
         $scope.carregarComboTipo();
         $scope.carregarComboPontoDeVenda();
@@ -52,7 +40,11 @@ app.controller('crudController', function($scope, $http) {
         } else {
             filtro = "pesquisa=todos"
         }
+        
+        $scope.chamarAPITabela(filtro);
+    }    
     
+    $scope.chamarAPITabela = function _chamarAPITabela(filtro) {
         $http({
             method: "GET",
             url:'http://localhost:8080/alertas?' + filtro, 
@@ -65,8 +57,8 @@ app.controller('crudController', function($scope, $http) {
         .success(function(data){
             $scope.lista_alertas = data;
         });
-    }    
-    
+    }
+
     $scope.carregarComboTipo = function _carregarComboTipo() {
         $http({
             method: "GET",
