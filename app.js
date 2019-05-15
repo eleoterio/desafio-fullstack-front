@@ -1,10 +1,17 @@
 var app = angular.module('crudApp', ['datatables']);
-app.controller('crudController', function($scope, $http){
+app.controller('crudController', function($scope, $http) {
 
 	$scope.success = false;
 
     $scope.error = false;
     
+    $scope.combo = {
+        Tipo: [],
+        TipoModel: null,
+        Ponto: [],
+        PontoModel: null,
+    };
+
     $scope.fetchData = function(){
         $http({
             method: "GET",
@@ -37,10 +44,7 @@ app.controller('crudController', function($scope, $http){
                 select.push(obj);
             })
 
-			$scope.combo = {
-                model: null,
-                comboPonto: select
-            };
+			$scope.combo.Ponto = select;
         });
         
         $http({
@@ -61,31 +65,24 @@ app.controller('crudController', function($scope, $http){
                 select.push(obj);
             })
             
-			$scope.data = {
-                model: null,
-                comboTipo: select
-            };
+			$scope.combo.Tipo = select;
         });
     };
-    $("#comboPonto").on('change', function() {
-        carregarTabela()
-    });
-    
-    $("#comboTipo").on('change', function() {
-        carregarTabela()
-    });
-    function carregarTabela(){
-        let tipo = $("#comboTipo").val();
-        let ponto = $("#comboPonto").val();
+
+    $scope.carregarTabela = function _carregarTabela() {
+        let tipo = $scope.combo.TipoModel;
+        let ponto = $scope.combo.PontoModel;
+
         let filtro = "";
-        if (tipo != "" && ponto != "") {
+
+        if (tipo && ponto) {
             filtro = "pesquisa=localtipo"
             filtro += "&ponto_de_venda=" + ponto
             filtro += "&tipo=" + tipo
-        } else if (tipo != "") {
+        } else if (tipo) {
             filtro = "pesquisa=tipo"
             filtro += "&tipo=" + tipo
-        } else if(ponto != "") {
+        } else if(ponto) {
             filtro = "pesquisa=local"
             filtro += "&ponto_de_venda=" + ponto
         } else {
@@ -104,5 +101,5 @@ app.controller('crudController', function($scope, $http){
         .success(function(data){
             $scope.lista_alertas = data;
         });
-    }
+    }    
 });
