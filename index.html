@@ -13,59 +13,61 @@
 		<meta charset="utf-8"/>
 	</head>
 	<body ng-app="crudApp" ng-controller="crudController">
-		<div class="panel panel-default card-view " ng-init="fetchData()">
-            <div class="panel-heading">
-                <div class="pull-center">
-                    <h6 class="panel-title text-center">Consulta de Pesquisa</h6>
-                </div>
-                <div class="clearfix"></div>
-			</div>
-			<div class="card text-white bg-secondary ">
-				<div class="panel-body">
-					<div class="col-lg-6">
-						<label>Tipo de pesquisa</label>
-						<select name="comboTipo" 
-							id="comboTipo" 
-							ng-model="combo.TipoModel" 
-							ng-change="carregarTabela()">
-							<option ng-repeat="option in combo.Tipo" value="{{option.id}}">{{option.name}}</option>
-						</select>
+		<div class="container-fluid">
+			<div class="panel panel-default card-view " ng-init="fetchData()">
+				<div class="panel-heading">
+					<div class="pull-center">
+						<h6 class="panel-title text-center">Consulta de Pesquisa</h6>
 					</div>
-					<div class="col-lg-6">
-						<label>Ponto de Venda</label>
-						<select
-							name="comboPonto"
-							id="comboPonto"
-							ng-model="combo.PontoModel"
-							ng-change="carregarTabela()">
-							<option ng-repeat="option in combo.Ponto" value="{{option.id}}">{{option.name}}</option>
-						</select>
+					<div class="clearfix"></div>
+				</div>
+				<div class="card text-white bg-secondary ">
+					<div class="panel-body">
+						<div class="col-lg-6">
+							<label>Tipo de pesquisa</label>
+							<select name="comboTipo" 
+								id="comboTipo" 
+								ng-model="combo.TipoModel" 
+								ng-change="carregarTabela()">
+								<option ng-repeat="option in combo.Tipo" value="{{option.id}}">{{option.name}}</option>
+							</select>
+						</div>
+						<div class="col-lg-6">
+							<label>Ponto de Venda</label>
+							<select
+								name="comboPonto"
+								id="comboPonto"
+								ng-model="combo.PontoModel"
+								ng-change="carregarTabela()">
+								<option ng-repeat="option in combo.Ponto" value="{{option.id}}">{{option.name}}</option>
+							</select>
+						</div>
 					</div>
 				</div>
-			</div>
-            <div class="panel-wrapper collapse in card-body bg-info">
-                <div class="panel-body">
-                    <div class="col-lg-12">
-						<div class="table-responsive" style="overflow-x: unset;">
-								<table datatable="ng" class="table table-bordered table-striped">
-									<thead class="bg-primary">
-										<tr>
-											<th>Ponto de Venda</th>
-											<th>Data</th>
-											<th>Produto/Categoria</th>
-											<th>Margem</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="alerta in lista_alertas">
-											<td>{{alerta.pontoDeVenda}}</td>
-											<td>{{alerta.dataRegistro | date:'dd/MM/yyyy'}}</td>
-											<td>{{alerta.produto ? alerta.produto : alerta.categoria}}</td>
-											<td>{{alerta.margem}}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+				<div class="panel-wrapper collapse in card-body bg-info">
+					<div class="panel-body">
+						<div class="col-lg-12">
+							<div class="table-responsive" style="overflow-x: unset;">
+									<table datatable="ng" class="table table-bordered table-striped">
+										<thead class="bg-primary">
+											<tr>
+												<th>Ponto de Venda</th>
+												<th>Data</th>
+												<th>Produto/Categoria</th>
+												<th>Margem</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="alerta in lista_alertas">
+												<td>{{alerta.pontoDeVenda}}</td>
+												<td>{{alerta.dataRegistro | date:'dd/MM/yyyy'}}</td>
+												<td>{{alerta.produto ? alerta.produto : alerta.categoria}}</td>
+												<td>{{alerta.margem}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+						</div>
 					</div>
 				</div>
 			</div>
