@@ -1,5 +1,5 @@
-var app = angular.module('crudApp', ['datatables']);
-app.controller('crudController', function($scope, $http) {
+var app = angular.module('app', ['datatables', 'app.services', 'app.api']);
+app.controller('viewController', function($scope, $http, ShowCombo, apiService) {
 
 	$scope.success = false;
 
@@ -16,8 +16,8 @@ app.controller('crudController', function($scope, $http) {
         
         $scope.carregarTabela();
         
-        $scope.carregarComboTipo();
-        $scope.carregarComboPontoDeVenda();
+        $scope.combo.Tipo = ShowCombo.comboTipo();
+        $scope.combo.Ponto = ShowCombo.comboPonto();
         
     };
 
@@ -41,67 +41,7 @@ app.controller('crudController', function($scope, $http) {
             filtro = "pesquisa=todos"
         }
         
-        $scope.chamarAPITabela(filtro);
+        $scope.lista_alertas = apiService.getAPI(filtro);
     }    
-    
-    $scope.chamarAPITabela = function _chamarAPITabela(filtro) {
-        $http({
-            method: "GET",
-            url:'http://localhost:8080/alertas?' + filtro, 
-            headers: {
-                'Access-Control-Allow-Headers': 'accept, content-type',
-                'Access-Control-Allow-Methods': 'GET',
-                'Access-Control-Allow-Origin': '*'
-            }     
-        })
-        .success(function(data){
-            $scope.lista_alertas = data;
-        });
-    }
 
-    $scope.carregarComboTipo = function _carregarComboTipo() {
-        $http({
-            method: "GET",
-            url:'http://localhost:8080/combos/tipo', 
-            headers: {
-                'Access-Control-Allow-Headers': 'accept, content-type',
-                'Access-Control-Allow-Methods': 'GET',
-                'Access-Control-Allow-Origin': '*'
-            }     
-        })
-        .success(function(data){
-            let select = [];
-            var obj = {id: "", name: "Selecionar Tipo"}
-            select.push(obj);
-            $.each(data, function(key, value){
-                obj = { id: value, name: value}
-                select.push(obj);
-            })
-            
-			$scope.combo.Tipo = select;
-        });
-    }
-
-    $scope.carregarComboPontoDeVenda = function _carregarComboPontoDeVenda() {
-        $http({
-            method: "GET",
-            url:'http://localhost:8080/combos/ponto-de-venda', 
-            headers: {
-                'Access-Control-Allow-Headers': 'accept, content-type',
-                'Access-Control-Allow-Methods': 'GET',
-                'Access-Control-Allow-Origin': '*'
-            }     
-        })
-        .success(function(data){
-            let select = [];
-            var obj = {id: "", name: "Selecionar Ponto de venda"}
-            select.push(obj);
-            $.each(data, function(key, value){                
-                obj = { id: value, name: value}
-                select.push(obj);
-            })
-
-			$scope.combo.Ponto = select;
-        });
-    }
 });
